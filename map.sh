@@ -27,7 +27,7 @@ for FQZ1 in *_R1.fastq.gz ; do
   echo "Running samtools pileup"
   OUT=$BASE.out
   samtools mpileup -f ../ref.fa -d 99999999999999999 $BAM \
-  | tr '.' '@' \
+  | tr ',.' '@' \
   | awk -F ' ' '{OFS="\t"}{print $0, "\t" gsub(/@/,"", $5)}' \
   | awk '{OFS="\t"}{print $1,$2,$3,$4,$7}' > $OUT
   echo
