@@ -28,14 +28,21 @@ rownames(mx) <- mx$V2
 mx$V2 = NULL
 colnames(mx) <- mynames
 
-#mx <- 1 - mx
+ss <- mx[which(apply(mx,1,mean) < 0.99),]
 
-heatmap.2(as.matrix(mx),scale="none",trace="none",Rowv=FALSE,Colv=FALSE)
-
-pdf("hm1.pdf")
+pdf("res.pdf")
 
 heatmap.2(as.matrix(mx),scale="none",trace="none",
   Rowv=FALSE,Colv=FALSE, dendrogram="none",
   cexCol=0.6,cexRow=0.5,margin=c(8,5))
 
+par(mar=c(5,10,3,1))
+
+barplot(unlist(as.vector(ss[1,,drop=TRUE])),horiz=TRUE,las=1,cex.names=0.6,main="286",xlim=c(0,0.5))
+
+barplot(unlist(as.vector(ss[2,,drop=TRUE])),horiz=TRUE,las=1,cex.names=0.6,main="420",xlim=c(0,0.5))
+
+barplot(unlist(as.vector(ss[3,,drop=TRUE])),horiz=TRUE,las=1,cex.names=0.6,main="437",xlim=c(0,0.5))
+
 dev.off()
+
